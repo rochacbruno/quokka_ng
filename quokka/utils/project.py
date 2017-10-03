@@ -18,4 +18,4 @@ def fetch_modules(modules, destiny):
 
 
 def cookiecutter(*args, **kwargs):
-    lecho('🔧 Warning:', 'Config file not written', red)
+    lecho('🔧  Warning:', 'Config file not written', red)

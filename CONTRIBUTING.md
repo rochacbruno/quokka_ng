@@ -41,7 +41,7 @@ in docstrings, or in project documentation website, or even on the web in blog p
 ### Submit Feedback and ask for new features
 
 The best way to send feedback is to file an issue at
-<https://github.com/quokkaproject/quokka/issues>
+<https://github.com/rochacbruno/quokka_ng/issues>
 
 If you are proposing a feature:
 

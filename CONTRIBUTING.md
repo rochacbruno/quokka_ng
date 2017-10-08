@@ -11,7 +11,7 @@ Types of Contributions
 
 ### Report Bugs
 
-Report bugs at <https://github.com/quokkaproject/quokka/issues>
+Report bugs at <https://github.com/rochacbruno/quokka_ng/issues>
 
 If you are reporting a bug, please include:
 

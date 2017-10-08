@@ -28,7 +28,7 @@ open to whoever wants to implement it.
 
 ### Implement Features
 
-Look through the [roadmap](/roadmap.md) file. Anything there is open to whoever wants to implement it, if you have any doubts about the item, open an issue or enter in GITTER Chat
+Look through the [Issues](https://github.com/rochacbruno/quokka_ng/issues) board. Anything there is open to whoever wants to implement it, if you have any doubts please leave a comment the issue asking for clarification.
 
 ### Write Documentation
 

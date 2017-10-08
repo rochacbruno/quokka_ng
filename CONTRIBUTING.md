@@ -91,14 +91,3 @@ for local development.
         $ git push origin name-of-your-bugfix-or-feature
 
 8.  Submit a pull request through the GitHub website or github CLI.
-
-Pull Request Guidelines
-=======================
-
-Before you submit a pull request, check that it meets these guidelines:
-
-1.  the Pull Request should be send against **development** branch only
-2.  The pull request should include tests.
-3.  If the pull request adds functionality, the docs should be updated.
-4.  The pull request should work on Travis CI. Check <https://travis-ci.org/quokkaproject/quokka/pull_requests> and make sure that the tests pass for all supported Python versions.
-> Travis CI will include feedback in your Pull Requests

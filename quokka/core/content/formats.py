@@ -4,6 +4,7 @@ import json
 from .parsers import markdown
 from flask import current_app as app, Markup
 from flask_admin.helpers import get_form_data
+from flask_admin.model.fields import InlineFieldList, InlineFormField
 from quokka.admin.forms import Form, fields, rules, validators
 from werkzeug.utils import import_string
 
@@ -79,6 +80,33 @@ def get_category_kw(field):
     categories = sorted(list(set(categories)))
     return {'data-tags': json.dumps(categories),
             'data-placeholder': 'One category or leave blank'}
+
+
+def validate_collection_item(form, field):
+    if field.data is not None:
+        items = field.data.split(',')
+        if len(items) > 1:
+            return 'You can select only one URL for each item'
+
+
+def get_collection_item_kw(field):
+    items = [
+        f"{d['content_type']}::{d['title']}::{d['category']}/{d['slug']}"
+        for d in app.db.content_set() if not d['title'].isupper()
+    ]
+    items.extend([
+        f"category::{category or 'index'}"
+        for category in app.db.category_set()
+    ])
+    items.extend([
+        f"tag::{tag}" for tag in app.db.tag_set()
+    ])
+    items.extend([
+        f"author::{author}" for author in app.db.author_set()
+    ])
+    collections = sorted(list(set(items)))
+    return {'data-tags': json.dumps(collections),
+            'data-placeholder': 'Start typing, select existing or add new URL'}
 
 
 def get_default_category():
@@ -159,6 +187,27 @@ class CreateForm(BaseForm):
     )
 
 
+class CollectionItemForm(Form):
+    item = fields.Select2TagsField(
+        'Item',
+        [validators.required(),
+         validators.CallableValidator(validate_collection_item)],
+        save_as_list=False,
+        render_kw=get_collection_item_kw,
+        description=(
+            'Enter absolute URL `http://..` or `/foo/bar.html` '
+            'or select existing content.'
+        )
+    )
+    name = fields.StringField('Name', description='optional')
+    order = fields.IntegerField('Order', default=0)
+
+    index_id = fields.HiddenField('index_id')
+    category_id = fields.HiddenField('category_id')
+    tag_id = fields.HiddenField('tag_id')
+    author_id = fields.HiddenField('author_id')
+
+
 class BaseEditForm(BaseForm):
     """Edit form with all missing fields except `content`"""
 
@@ -211,6 +260,11 @@ class BaseEditForm(BaseForm):
             'data-off': "Disabled",
             "data-onstyle": 'success'
         }
+    )
+
+    # to be used only for Collection type
+    collection_items = InlineFieldList(
+        InlineFormField(CollectionItemForm), label='Items'
     )
 
 

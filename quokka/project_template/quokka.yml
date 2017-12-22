@@ -74,7 +74,7 @@ THEME:
     INDEX_CATEGORY: index
     # ARCHIVES_URL:
     # MAIN_MENU: false
-    MENUITEMS: [['Index', 'index']]
+    MENUITEMS: [['Index', 'index'], ['foo', 'foo'], ['about', 'about.html']]
     LINKS: [['blog', '/blog'], ['all', '/all']]
     SOCIAL:
       - ['twitter', 'http://twitter.com/rochacbruno']
@@ -235,12 +235,12 @@ THEME_BOOTSTRAP3:
     # PAGES_SORT_ATTRIBUTE:
 
 THEME_MALT:
-    SITELOGO: http://lorempixel.com/200/200/business/
+    SITELOGO: /theme/img/logo.png
     ## http://materializecss.com/color.html
     MALT_BASE_COLOR: teal
     PYGMENTS_STYLE: native
     ## If Article has banner and banner_subtitle metadata it will be overwritten
-    BANNER: http://lorempixel.com/1000/200/abstract/
+    BANNER: /theme/img/island.jpg
     BANNER_SUBTITLE: Hello World
     BANNER_TEXT: Hello Again
     # BANNER_ALL_PAGES: true
@@ -407,6 +407,7 @@ QUOKKA:
     - quokka.core.monitoring.configure
     - quokka.core.themes.configure
     - quokka.core.context_processors.configure
+    - quokka.core.template_filters.configure
     - quokka.core.content.configure
     - quokka.admin.configure_file_admin
     - quokka.admin.configure_extra_views

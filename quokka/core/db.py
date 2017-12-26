@@ -176,17 +176,17 @@ class QuokkaDB(object):
             args[0]['content_type'] = 'page'
         return self.content_set(*args, **kwargs)
 
-    def collection_set(self, *args, **kwargs):
+    def block_set(self, *args, **kwargs):
             kwargs.setdefault(
                 'sort',
                 self.app.theme_context.get(
-                    'COLLECTION_ORDER_BY', [('title', -1)]
+                    'BLOCK_ORDER_BY', [('title', -1)]
                 )
             )
             if not args:
-                args = [{'content_type': 'collection'}]
+                args = [{'content_type': 'block'}]
             elif isinstance(args[0], dict):
-                args[0]['content_type'] = 'collection'
+                args[0]['content_type'] = 'block'
             return self.content_set(*args, **kwargs)
 
     def select(self, colname, *args, **kwargs):
@@ -255,7 +255,7 @@ def is_equal(model, other):
     versioned_keys = [
         'title', 'summary', 'tags', 'category', 'date',
         'content', 'authors', 'slug', 'status', 'published',
-        'comments', 'collection_items'
+        'comments', 'block_items'
     ]
     for key in versioned_keys:
         if model.get(key) != other.get(key):

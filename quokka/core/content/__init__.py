@@ -1,5 +1,5 @@
 from quokka.core.app import QuokkaModule
-from .admin import AdminArticlesView, AdminPagesView, AdminCollectionsView
+from .admin import AdminArticlesView, AdminPagesView, AdminBlocksView
 from .views import (
     DetailView, PreviewView, ArticleListView, CategoryListView, TagListView,
     AuthorListView
@@ -25,9 +25,9 @@ def configure(app):
 
     app.admin.register(
         app.db.index,
-        AdminCollectionsView,
-        name='Collections',
-        endpoint='collectionview'
+        AdminBlocksView,
+        name='Blocks',
+        endpoint='blockview'
     )
 
     # Admin admin index panel icons
@@ -44,7 +44,7 @@ def configure(app):
     )
 
     app.admin.add_icon(
-        endpoint='quokka.core.content.admin.collectionview.create_view',
+        endpoint='quokka.core.content.admin.blockview.create_view',
         icon='glyphicon-th-list',
         text='New<br>Collection'
     )
@@ -140,22 +140,22 @@ def configure(app):
     module.add_url_rule(f'/tag/<string:tag>/<int:page_number>/index.{ext}',
                         view_func=ArticleListView.as_view('tagpagnamed'))
 
-    # COLLECTION
-    # handle /collection/slug.html
-    # module.add_url_rule('/tag/<string:tag>/',
-    #                     view_func=ArticleListView.as_view('tag'))
-    # # handle /tag/tagname/index.html
-    # module.add_url_rule(f'/tag/<string:tag>/index.{ext}',
-    #                     view_func=ArticleListView.as_view('tagnamed'))
-    # # handle /tag/tagname/2/
-    # module.add_url_rule('/tag/<string:tag>/<int:page_number>/',
-    #                     view_func=ArticleListView.as_view('tagpag'))
-    # # handle /tag/tagname/2.html
-    # module.add_url_rule(f'/tag/<string:tag>/<int:page_number>.{ext}',
-    #                     view_func=ArticleListView.as_view('tagpagext'))
-    # # handle /tag/tagname/2/index.html
-    # module.add_url_rule(f'/tag/<string:tag>/<int:page_number>/index.{ext}',
-    #                     view_func=ArticleListView.as_view('tagpagnamed'))
+    # BLOCKS
+    # handle /block/slug.html
+    module.add_url_rule('/block/<string:block>/',
+                        view_func=ArticleListView.as_view('block'))
+    # handle /block/blockname/index.html
+    module.add_url_rule(f'/block/<string:block>/index.{ext}',
+                        view_func=ArticleListView.as_view('blocknamed'))
+    # handle /block/blockname/2/
+    module.add_url_rule('/block/<string:block>/<int:page_number>/',
+                        view_func=ArticleListView.as_view('blockpag'))
+    # handle /block/blockname/2.html
+    module.add_url_rule(f'/block/<string:block>/<int:page_number>.{ext}',
+                        view_func=ArticleListView.as_view('blockpagext'))
+    # handle /block/blockname/2/index.html
+    module.add_url_rule(f'/block/<string:block>/<int:page_number>/index.{ext}',
+                        view_func=ArticleListView.as_view('blockpagnamed'))
 
     # CATEGORIES
     # handle /categories/

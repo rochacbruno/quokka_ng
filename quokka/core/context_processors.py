@@ -31,21 +31,27 @@ def configure(app):
         ]
         # context['tag_cloud']
 
-        menu = build_menu(app)
-        if menu:
-            context['MENUITEMS'] = menu
+        for menublock in app.theme_context.get('MENUBLOCKS'):
+            menu = build_menu(app, menublock)
+            if menu:
+                context[menublock] = menu
+
+        for textblock in app.theme_context.get('TEXTBLOCKS'):
+            block = get_text_block(app, textblock)
+            if block:
+                context[textblock] = block
 
         return context
 
 
-def build_menu(app):
+def build_menu(app, title='MENUITEMS'):
     menu = app.db.get(
         'index',
-        {'content_type': 'collection', 'title': 'MENUITEMS', 'published': True}
+        {'content_type': 'block', 'title': title, 'published': True}
     )
-    if menu and menu.get('collection_items'):
+    if menu and menu.get('block_items'):
         return [
-            build_menu_item(app, item) for item in menu['collection_items']
+            build_menu_item(app, item) for item in menu['block_items']
         ]
 
 
@@ -64,3 +70,12 @@ def build_menu_item(app, item):
         return (name or data, make_model(data, ref).url)
 
     return (name, item['item'])
+
+
+def get_text_block(app, title):
+    block = app.db.get(
+        'index',
+        {'content_type': 'block', 'title': title, 'published': True}
+    )
+    if block:
+        return make_model(block)

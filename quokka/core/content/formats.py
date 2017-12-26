@@ -62,7 +62,8 @@ def validate_category(form, field):
     denied_categories = app.config.get(
         'DENIED_CATEGORIES',
         ['tag', 'tags', 'categories', 'author', 'authors', 'user',
-         'index', 'feed', 'admin', 'adm', 'login', 'logout', 'sitemap']
+         'index', 'feed', 'admin', 'adm', 'login', 'logout', 'sitemap',
+         'block']
     )
     if field.data is not None:
         items = field.data.split(',')
@@ -82,21 +83,23 @@ def get_category_kw(field):
             'data-placeholder': 'One category or leave blank'}
 
 
-def validate_collection_item(form, field):
+def validate_block_item(form, field):
     if field.data is not None:
         items = field.data.split(',')
         if len(items) > 1:
             return 'You can select only one URL for each item'
 
 
-def get_collection_item_kw(field):
+def get_block_item_kw(field):
     items = [
         f"{d['content_type']}::{d['title']}::{d['category']}/{d['slug']}"
         for d in app.db.content_set() if not d['title'].isupper()
     ]
+    index = app.theme_context.get('INDEX_CATEGORY')
+    items.append(f"category::{index}")
     items.extend([
-        f"category::{category or 'index'}"
-        for category in app.db.category_set()
+        f"category::{category}"
+        for category in app.db.category_set() if category
     ])
     items.extend([
         f"tag::{tag}" for tag in app.db.tag_set()
@@ -104,8 +107,8 @@ def get_collection_item_kw(field):
     items.extend([
         f"author::{author}" for author in app.db.author_set()
     ])
-    collections = sorted(list(set(items)))
-    return {'data-tags': json.dumps(collections),
+    block_items = sorted(list(set(items)))
+    return {'data-tags': json.dumps(block_items),
             'data-placeholder': 'Start typing, select existing or add new URL'}
 
 
@@ -187,13 +190,13 @@ class CreateForm(BaseForm):
     )
 
 
-class CollectionItemForm(Form):
+class BlockItemForm(Form):
     item = fields.Select2TagsField(
         'Item',
         [validators.required(),
-         validators.CallableValidator(validate_collection_item)],
+         validators.CallableValidator(validate_block_item)],
         save_as_list=False,
-        render_kw=get_collection_item_kw,
+        render_kw=get_block_item_kw,
         description=(
             'Enter absolute URL `http://..` or `/foo/bar.html` '
             'or select existing content.'
@@ -262,9 +265,9 @@ class BaseEditForm(BaseForm):
         }
     )
 
-    # to be used only for Collection type
-    collection_items = InlineFieldList(
-        InlineFormField(CollectionItemForm), label='Items'
+    # to be used only for Block type
+    block_items = InlineFieldList(
+        InlineFormField(BlockItemForm), label='Items'
     )
 
 

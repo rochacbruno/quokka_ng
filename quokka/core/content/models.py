@@ -302,8 +302,8 @@ class Page(Content):
     """Represents a static page"""
 
 
-class Collection(Content):
-    """Represents a collection of items"""
+class Block(Content):
+    """Represents a block of items"""
 
 
 def make_model(content, content_type=None):
@@ -312,21 +312,9 @@ def make_model(content, content_type=None):
 
     content_type = content_type or content.get('content_type')
     content_type = content_type.lower()
+    model_name = content_type.capitalize()
 
-    if content_type == 'article':
-        return Article(content)
-    elif content_type == 'page':
-        return Page(content)
-    elif content_type == 'collection':
-        return Collection(content)
-    elif content_type == 'category':
-        return Category(content)
-    elif content_type == 'tag':
-        return Tag(content)
-    elif content_type == 'author':
-        return Author(content)
-
-    return Content(content)
+    return globals().get(model_name, Content)(content)
 
 
 def make_paginator(object_list, *args, **kwargs):

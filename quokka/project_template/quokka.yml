@@ -57,31 +57,60 @@ THEME:
     SITETITLE: The site title
     SITESUBTITLE: The site subtitle
 
+    MENUBLOCKS:
+      - MENUITEMS
+      - LINKS
+      - SOCIAL
+
+    TEXTBLOCKS:
+      - SITELOGO
+      - SITENAME
+      - TAGLINE
+      - SITEDESCRIPTION
+      - SITE_SUMMARY
+      - SITETITLE
+      - SITESUBTITLE
+      - BANNER
+      - BANNER_SUBTITLE
+      - BANNER_TEXT
+      - FOOTER_ABOUT
+      - HEADER_COVER
+      - HEADER_COLOR
+      - AUTHOR_ABOUT
+      - MALT_BASE_COLOR
+      - PYGMENTS_STYLE
+      - HOME_TEMPLATE
+      - ABOUT_ME
+      - AVATAR
+      - AUTHOR
+      - BOOTSTRAP_THEME
+      - DISQUS_SITENAME
+      - ACTIVE
+
     # GOOGLE_ANALYTICS: 'code-here'
     # GAUGES: 'code-here'
     # PIWIK_URL: 'url-here'
     # PIWIK_SSL_URL: 'url-here'
     # PIWIK_SITE_ID: 'code-here'
     DISQUS_SITENAME: quokkaproject
-    DISPLAY_PAGES_ON_MENU: true
-    DISPLAY_CATEGORIES_ON_MENU: true
+    # DISPLAY_PAGES_ON_MENU: true
+    # DISPLAY_CATEGORIES_ON_MENU: true
     ## contents posted on `blog` category is always showed as list
     LIST_CATEGORIES: ['blog']
     ## This is a link `/all` which will return all content independent
     ## of its category, normally the same as `/` but for themes where
     ## the INDEX_TEMPLATE is set to other than index.html it is useful
-    ## exmaple: portal websites
     INDEX_CATEGORY: index
     # ARCHIVES_URL:
     # MAIN_MENU: false
-    MENUITEMS: [['Index', 'index'], ['foo', 'foo'], ['about', 'about.html']]
-    LINKS: [['blog', '/blog'], ['all', '/all']]
-    SOCIAL:
-      - ['twitter', 'http://twitter.com/rochacbruno']
-      - ['facebook', 'http://facebook.com/rochacbruno']
-      - ['linkedin', 'http://linkedin.com/in/rochacbruno']
-      - ['github', 'http://github.com/rochacbruno']
-      - ['stack-overflow', 'http://stackoverflow.com/users/559935']
+    #MENUITEMS: [['Index', 'index']]
+    #LINKS: [['blog', '/blog']]
+    #SOCIAL:
+    #  - ['twitter', 'http://twitter.com/rochacbruno']
+    #  - ['facebook', 'http://facebook.com/rochacbruno']
+    #  - ['linkedin', 'http://linkedin.com/in/rochacbruno']
+    #  - ['github', 'http://github.com/rochacbruno']
+    #  - ['stack-overflow', 'http://stackoverflow.com/users/559935']
     SITE_KEYWORDS: quokka, cms, flask, quokkaproject
     PAGE_ORDER_BY: [['title', -1]]
     # ARTICLE_ORDER_BY: [['date', -1]]

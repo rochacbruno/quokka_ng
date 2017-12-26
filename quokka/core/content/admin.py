@@ -367,9 +367,9 @@ class AdminPagesView(AdminContentView):
     ]
 
 
-class AdminCollectionsView(AdminContentView):
-    """Only collections"""
-    base_query = {'content_type': 'collection'}
+class AdminBlocksView(AdminContentView):
+    """Only blocks"""
+    base_query = {'content_type': 'block'}
     create_defaults = {'comments': False}
     column_list = (
         'title',
@@ -398,14 +398,14 @@ class AdminCollectionsView(AdminContentView):
         rules.FieldSet(('slug',)),
         rules.Field('published'),
         rules.Field('comments'),
-        rules.Field('collection_items'),
+        rules.Field('block_items'),
         rules.csrf_token
     ]
 
     def before_save(self, form, model, is_created):
-        if 'collection_items' in model:
-            model['collection_items'].sort(key=lambda x: x['order'])
-            for i, item in enumerate(model['collection_items']):
+        if 'block_items' in model:
+            model['block_items'].sort(key=lambda x: x['order'])
+            for i, item in enumerate(model['block_items']):
 
                 item.pop('csrf_token', None)
                 item['order'] = i
@@ -416,7 +416,7 @@ class AdminCollectionsView(AdminContentView):
                     else:
                         item[f"{ref}_id"] = None
 
-                content_types = ('article::', 'page::', 'collection::')
+                content_types = ('article::', 'page::', 'block::')
                 if item['item'].startswith(content_types):
                     full_slug = item['item'].split('::')[-1]
                     slug = full_slug.split('/')[-1]

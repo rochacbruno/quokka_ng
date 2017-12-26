@@ -46,7 +46,7 @@ def configure(app):
     app.admin.add_icon(
         endpoint='quokka.core.content.admin.blockview.create_view',
         icon='glyphicon-th-list',
-        text='New<br>Collection'
+        text='New<br>Block'
     )
 
     # app.admin.add_icon(

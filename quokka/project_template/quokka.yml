@@ -264,16 +264,16 @@ THEME_BOOTSTRAP3:
     # PAGES_SORT_ATTRIBUTE:
 
 THEME_MALT:
-    SITELOGO: /theme/img/logo.png
+    # SITELOGO: /theme/img/logo.png
     ## http://materializecss.com/color.html
-    MALT_BASE_COLOR: teal
+    # MALT_BASE_COLOR: teal
     PYGMENTS_STYLE: native
     ## If Article has banner and banner_subtitle metadata it will be overwritten
-    BANNER: /theme/img/island.jpg
-    BANNER_SUBTITLE: Hello World
-    BANNER_TEXT: Hello Again
+    # BANNER: /theme/img/island.jpg
+    # BANNER_SUBTITLE: Hello World
+    # BANNER_TEXT: Hello Again
     # BANNER_ALL_PAGES: true
-    FOOTER_ABOUT: <b> Hello </b> World
+    # FOOTER_ABOUT: <b> Hello </b> World
     ## remove if you want home to be full article list
     HOME_TEMPLATE: home.html
     SHOW_SITELOGO: true

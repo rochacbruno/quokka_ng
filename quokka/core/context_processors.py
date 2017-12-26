@@ -78,4 +78,4 @@ def get_text_block(app, title):
         {'content_type': 'block', 'title': title, 'published': True}
     )
     if block:
-        return make_model(block)
+        return make_model(block).content

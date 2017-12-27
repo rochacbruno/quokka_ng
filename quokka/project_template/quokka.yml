@@ -294,7 +294,7 @@ THEME_MALT:
       - {var: HIDE_CATEGORY, where: [category, tag, author, index], value: false}
       - {var: CARD_SIZE, where: [category, tag, author], value: "s12 m6 l4"}
       - {var: CARD_SIZE, where: [index, all], value: "s12 m12 l12"}
-      - {var: MENUITEMS, where: home, value: [['Index', 'index']]}
+      # - {var: MENUITEMS, where: home, value: [['Index', 'index']]}
       # remove below to enable coments on pages
       # (can also be controled individually by `comments = 'closed|opened' metadata`)
       - {var: HIDE_COMMENTS, where: page, value: true}

@@ -1,5 +1,6 @@
 # coding: utf-8
 
+
 def is_list(obj):
     return isinstance(obj, (list, tuple))
 

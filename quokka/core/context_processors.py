@@ -57,10 +57,23 @@ def build_menu(app, title='MENUITEMS'):
 
 def build_menu_item(app, item):
     """Return a name for menu item based on its destination"""
+    dropdown_enabled = app.theme_context.get('MENU_DROPDOWN_ENABLED', False)
     name = item.get('name')
 
     if item.get('index_id'):
         content = app.db.get('index', {'_id': item['index_id']})
+
+        if (
+            dropdown_enabled and
+            item.get('item_type') == 'dropdown' and
+            content['content_type'] == 'block'
+        ):
+            return (
+                name or content['title'],
+                [build_menu_item(app, subitem)
+                 for subitem in content['block_items']]
+            )
+
         return (name or content['title'], url_for_content(content))
 
     for ref in ['author', 'category', 'tag']:

@@ -93,7 +93,8 @@ def validate_block_item(form, field):
 def get_block_item_kw(field):
     items = [
         f"{d['content_type']}::{d['title']}::{d['category']}/{d['slug']}"
-        for d in app.db.content_set() if not d['title'].isupper()
+        for d in app.db.content_set()
+        if d['title'] not in app.theme_context.get('TEXTBLOCKS', [])
     ]
     index = app.theme_context.get('INDEX_CATEGORY')
     items.append(f"category::{index}")
@@ -204,6 +205,15 @@ class BlockItemForm(Form):
     )
     name = fields.StringField('Name', description='optional')
     order = fields.IntegerField('Order', default=0)
+    item_type = fields.SmartSelect2Field(
+        'Type',
+        [validators.required()],
+        default='link',
+        choices=lambda: [
+            item for item in
+            app.config.get('BLOCK_ITEM_TYPES', [('Link', 'link')])
+        ]
+    )
 
     index_id = fields.HiddenField('index_id')
     category_id = fields.HiddenField('category_id')

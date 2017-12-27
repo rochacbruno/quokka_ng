@@ -9,15 +9,32 @@
                 {% if MENUITEMS %}
                 <ul class="right hide-on-med-and-down">
                     {% for name, url in MENUITEMS %}
-                    {% if page is defined %}
-                        {% set href = page.url %}
-                    {% elif page_name is defined %}
-                        {% set href = page_name %}
-                    {% else %}
-                        {% set href = None %}
-                    {% endif %}
-                    <li {% if href == url %}class="active"{% endif %}><a href="{{ SITEURL }}/{{ url}}">{{ name}}</a></li>
+                        {% if page is defined %}
+                            {% set href = page.url %}
+                        {% elif page_name is defined %}
+                            {% set href = page_name %}
+                        {% else %}
+                            {% set href = None %}
+                        {% endif %}
+            
+                        {% if is_list(url) %}
+                            <ul id="dropdown{{loop.index}}" class="dropdown-content">
+                                {% for subname, sublink in url %}
+                                    <li><a href="{{ SITEURL }}/{{ sublink }}"> {{ subname }} </a></li>
+                                {% endfor %} 
+                                <!-- <li class="divider"></li> -->
+                            </ul>
+                            <li{% if href == url %}class="active"{% endif %}>
+                                <a class="dropdown-button" href="#!" data-activates="dropdown{{loop.index}}">   
+                                    {{ name }} <i class="material-icons right">arrow_drop_down</i>
+                                </a>
+                            </li>
+                        {% else %}
+                            <li {% if href == url %}class="active"{% endif %}><a href="{{ SITEURL }}/{{ url}}">{{ name }}</a></li>
+                        {% endif %}
+
                     {% endfor %}
+                    <!-- TODO: add support for materialize icons -->
 
                 </ul>
 

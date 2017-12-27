@@ -85,7 +85,6 @@ THEME:
       - AUTHOR
       - BOOTSTRAP_THEME
       - DISQUS_SITENAME
-      - ACTIVE
 
     # GOOGLE_ANALYTICS: 'code-here'
     # GAUGES: 'code-here'
@@ -264,16 +263,16 @@ THEME_BOOTSTRAP3:
     # PAGES_SORT_ATTRIBUTE:
 
 THEME_MALT:
-    # SITELOGO: /theme/img/logo.png
+    SITELOGO: /theme/img/logo.png
     ## http://materializecss.com/color.html
-    # MALT_BASE_COLOR: teal
+    MALT_BASE_COLOR: teal
     PYGMENTS_STYLE: native
     ## If Article has banner and banner_subtitle metadata it will be overwritten
-    # BANNER: /theme/img/island.jpg
-    # BANNER_SUBTITLE: Hello World
-    # BANNER_TEXT: Hello Again
+    BANNER: /theme/img/island.jpg
+    BANNER_SUBTITLE: Hello World
+    BANNER_TEXT: Hello Again
     # BANNER_ALL_PAGES: true
-    # FOOTER_ABOUT: <b> Hello </b> World
+    FOOTER_ABOUT: <b> Hello </b> World
     ## remove if you want home to be full article list
     HOME_TEMPLATE: home.html
     SHOW_SITELOGO: true
@@ -286,6 +285,8 @@ THEME_MALT:
     HIDE_CATEGORY: false
 
     DISPLAY_BREADCRUMBS: false
+
+    MENU_DROPDOWN_ENABLED: true
 
     DYNAMIC_VARS:
       - {var: SHOW_BACK_TOP, where: [article, page], value: true}
@@ -513,7 +514,7 @@ QUOKKA:
 
   ## [ --- ADMIN INTERFACE --- ]
   ADMIN:
-    name: My website
+    name: CMS
     url: /admin
 
   ## Custom message or html to include on admin top
@@ -532,6 +533,10 @@ QUOKKA:
   ADMIN_INDEX_CONTENT_SORT:
   #   - ['column', asc|-desc]
       - ['date', -1]
+
+  BLOCK_ITEM_TYPES:
+    - ['link', 'Link']
+    - ['dropdown', 'Dropdown']
 
   ## Swatch options in https://bootswatch.com/
   ## spacelab | paper | cerulean | united | more...
